@@ -4,7 +4,7 @@ require_once 'class/conn.class.php';
 if(isset($_POST['id']) && $_POST['id'] == 1){
 	$conn = new Conn($_POST['sgbd'], $_POST['adress'], $_POST['user'], $_POST['password']);
 	if($conn->connStatus()){
-		echo 1;
+		echo "y";
 	}else{
 		echo $conn->getError();
 	}
@@ -26,8 +26,7 @@ else if(isset($_POST['id']) && isset($_POST['base']) && isset($_POST['table']) &
 	$conn = new Conn($_POST['sgbd'], $_POST['adress'], $_POST['user'], $_POST['password']);
 	if($conn->useDatabase($_POST['base'])){
 		//CREATE HERE INSERT INTO
-		$result = $conn->massiveInsert($_POST['table'], $_POST['qtd']);
-		echo $result;
+		$conn->massiveInsert($_POST['table'], $_POST['qtd']);
 	}
 }
 else if(isset($_POST['id']) && $_POST['id'] == 5){

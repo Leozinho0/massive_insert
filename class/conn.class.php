@@ -14,27 +14,11 @@ class Conn{
 	private $conn_status = false;
 ##Connection Errors
 	private $conn_error;
-##DataSets Includes as Arrays
-	private $arr_ds_nomes;
-	private $arr_ds_char;
-	private $arr_ds_date;
-	private $arr_ds_datetime;
-	private $arr_ds_text;
-	private $arr_ds_time;
-	private $arr_ds_timestamp;
-	private $arr_ds_year;
+
 ##Constructors
 	##Complete
 	function __construct($sgbd, $address, $user, $pwd){
 		$this->connect($sgbd, $address, $user, $pwd);
-		$this->arr_ds_nomes = json_decode (file_get_contents("json/ds_nomes.json"));
-		$this->arr_ds_char = json_decode (file_get_contents("json/ds_char.json"));
-		$this->arr_ds_date = json_decode (file_get_contents("json/ds_date.json"));
-		$this->arr_ds_datetime = json_decode (file_get_contents("json/ds_datetime.json"));
-		$this->arr_ds_text = json_decode (file_get_contents("json/ds_text.json"));
-		$this->arr_ds_time = json_decode (file_get_contents("json/ds_time.json"));
-		$this->arr_ds_timestamp = json_decode (file_get_contents("json/ds_timestamp.json"));
-		$this->arr_ds_year = json_decode (file_get_contents("json/ds_year.json"));
 	}
 ##Private functions
 	private function connect($sgbd, $address, $user, $pwd){
@@ -93,7 +77,8 @@ class Conn{
 				foreach($a as $describe)
 				 {
 				 	if($describe[0] == 0){
-						return "Voce precisa popular a tabela {$table_foreign} primeiro!";
+						echo "You need to populate {$table_foreign} first!";
+						return false;
 				 	}else{
 				 		$sql = "select {$column_foreign} from {$table_foreign};";
 				 		$a = $this->conn_obj->query($sql);
@@ -134,64 +119,15 @@ class Conn{
 			}else if($ds == 'float' || $ds == 'double' || $ds == 'decimal'){
 				return $this->f_rand(0, 9999, 100000);
 			}else{
-				/*$json = file_get_contents($ds);
-				$arr = json_decode($json);*/
-				//----------------------------------
+				$json = file_get_contents($ds);
+				$arr = json_decode($json);
 				$arr_retorno = array();
-				switch($ds){
-					//data types
-					case 'date':{
-						return $arr_ds_date[array_rand($arr_retorno, 1)];
-						break;
-					}	
-					case 'datetime':{
-						return $arr_ds_datetime[array_rand($arr_retorno, 1)];
-						break;
-					}	
-					case 'timestamp':{
-						return $arr_ds_timestamp[array_rand($arr_retorno, 1)];
-						break;
-					}	
-					case 'time':{
-						return $arr_ds_time[array_rand($arr_retorno, 1)];
-						break;
-					}	
-					case 'year':{
-						return $arr_ds_year[array_rand($arr_retorno, 1)];
-						break;
-					}				
-					//text types
-					case 'varchar':{
-						//generate random string here
-						return $arr_ds_nomes[array_rand($arr_retorno, 1)];
-						break;
-					}
-					case 'char':{
-						return $arr_ds_char[array_rand($arr_retorno, 1)];
-						break;
-					}
-					case 'tinytext':{
-						return $arr_ds_text[array_rand($arr_retorno, 1)];
-						break;
-					}
-					case 'text':{
-						return $arr_ds_text[array_rand($arr_retorno, 1)];
-						break;
-					}
-					case 'mediumtext':{
-						return $arr_ds_text[array_rand($arr_retorno, 1)];
-						break;
-					}
-					case 'longtext':{
-						return $arr_ds_text[array_rand($arr_retorno, 1)];
-						break;
-					}
-					/*pegar isso aqui
-					foreach ($arr as $key=>$value){
+				foreach ($arr as $key=>$value){
 					if(strlen($value->value) <= $typeParam || $typeParam == ""){
 						$arr_retorno[] = "'".$value->value."'";
-					} */
+					}
 				}
+				return $arr_retorno[array_rand($arr_retorno, 1)];
 			}
 		}
 	}
@@ -215,9 +151,8 @@ class Conn{
 			}else{
 				$type = $key[1];
 			}
-			$arr_retorno[] = $this->dsDataGet($type, $typeParam, $key[3], $key[5], $table);
+			switch ($type) {
 				//int types
-				/*
 				case 'int':{
 					$arr_retorno[] = $this->dsDataGet('int', $typeParam, $key[3], $key[5], $table);
 					break;
@@ -296,7 +231,7 @@ class Conn{
 				case 'longtext':{
 					$arr_retorno[] = $this->dsDataGet('json/ds_text.json', $typeParam, $key[3], $key[5], $table);
 					break;
-				}*/
+				}
 			}
 		}
 		return implode (", ", $arr_retorno);
@@ -368,36 +303,16 @@ class Conn{
 	}
 	public function massiveInsert($table, $qtd=1){
 		$arr = $this->describeTable($table);
-		$result = 0;
 		for($i = 0; $i < $qtd; $i++){
 			$values = $this->generateRandomInsert($table, $arr); //retorna string
-				$sql = "INSERT INTO {$table} VALUES({$values});";
-				if($this->conn_obj->query($sql)){
-					$result = 1;
-				}else{
-					$result = $values;
-				}
+			echo "\n".$values;
+			$sql = "INSERT INTO {$table} VALUES({$values});";
+			$insert = $this->conn_obj->query($sql);
 		}
-		return $result;
 	}
 	##Error Functions
 	public function getError(){
 		return $this->conn_error;
 	}
 }
-//AQUI
-//AQUI
-//AQUI
-//AQUI
-//AQUI
-
-
-//AQUI
-//AQUI
-//AQUI
-//AQUI
-//AQUI
-//AQUI
-//AQUI
-//AQUI
 ?>
