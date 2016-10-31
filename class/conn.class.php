@@ -14,12 +14,31 @@ class Conn{
 	private $conn_status = false;
 ##Connection Errors
 	private $conn_error;
+##DS Arrays
+	private $arr_ds_nomes;
+	private $arr_ds_char;
+	private $arr_ds_date;
+	private $arr_ds_datetime;
+	private $arr_ds_text;
+	private $arr_ds_time;
+	private $arr_ds_timestamp;
+	private $arr_ds_year;
 
 ##Constructors
 	##Complete
 	function __construct($sgbd, $address, $user, $pwd){
 		$this->connect($sgbd, $address, $user, $pwd);
+		$this->arr_ds_nomes = json_decode (file_get_contents("json/ds_nomes.json"));
+		$this->arr_ds_char = json_decode (file_get_contents("json/ds_char.json"));
+		$this->arr_ds_date = json_decode (file_get_contents("json/ds_date.json"));
+		$this->arr_ds_datetime = json_decode (file_get_contents("json/ds_datetime.json"));
+		$this->arr_ds_text = json_decode (file_get_contents("json/ds_text.json"));
+		$this->arr_ds_time = json_decode (file_get_contents("json/ds_time.json"));
+		$this->arr_ds_timestamp = json_decode (file_get_contents("json/ds_timestamp.json"));
+		$this->arr_ds_year = json_decode (file_get_contents("json/ds_year.json"));
 	}
+
+
 ##Private functions
 	private function connect($sgbd, $address, $user, $pwd){
 		try{
@@ -301,6 +320,7 @@ class Conn{
 		 }
 		 return $arr_retorno;
 	}
+/*
 	public function massiveInsert($table, $qtd=1){
 		$arr = $this->describeTable($table);
 		for($i = 0; $i < $qtd; $i++){
@@ -310,9 +330,14 @@ class Conn{
 			$insert = $this->conn_obj->query($sql);
 		}
 	}
+*/
 	##Error Functions
 	public function getError(){
 		return $this->conn_error;
+	}
+	##teste de saída
+	public function massiveInsert($a, $b){
+		echo "lala";
 	}
 }
 ?>
