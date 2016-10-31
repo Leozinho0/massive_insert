@@ -1,5 +1,5 @@
 <?php
-require_once 'conn.class.php';
+require_once 'class/conn.class.php';
 ##Tests if connection succeed
 if(isset($_POST['id']) && $_POST['id'] == 1){
 	$conn = new Conn($_POST['sgbd'], $_POST['adress'], $_POST['user'], $_POST['password']);
