@@ -36,6 +36,8 @@ class Conn{
 		$this->arr_ds_time = json_decode (file_get_contents("json/ds_time.json"));
 		$this->arr_ds_timestamp = json_decode (file_get_contents("json/ds_timestamp.json"));
 		$this->arr_ds_year = json_decode (file_get_contents("json/ds_year.json"));
+
+		//sintaxe para pegar echo $this->arr_ds_char[0]->value;
 	}
 
 
@@ -125,7 +127,7 @@ class Conn{
 	//Parmetros: ds: Dataset Json do tipo de dado. $TypeParam: Parêntesis do tipo de dado (exeplo varchat(100))
 	//$key: campo key do describe table que diz se é chave estrangeira
 	//extra: Last field of the describe ask for auto_increment
-	private function dsDataGet($ds, $typeParam, $key, $extra, $table){
+	private function dsDataGet($type, $typeParam, $key, $extra, $table){
 
 		if($extra == 'auto_increment'){
 			return 'NULL';
@@ -133,18 +135,105 @@ class Conn{
 			if($key == 'MUL'){
 				return $this->checkForeignTable($table);
 			}
-			if($ds == 'int' || $ds == 'tinyint' || $ds == 'smallint' || $ds == 'mediumint' || $ds == 'bigint'){
+			if($type == 'int' || $ds == 'tinyint' || $ds == 'smallint' || $ds == 'mediumint' || $ds == 'bigint'){
 				return rand(0, 9999);
-			}else if($ds == 'float' || $ds == 'double' || $ds == 'decimal'){
+			}else if($type == 'float' || $ds == 'double' || $ds == 'decimal'){
 				return $this->f_rand(0, 9999, 100000);
 			}else{
-				$json = file_get_contents($ds);
-				$arr = json_decode($json);
 				$arr_retorno = array();
-				foreach ($arr as $key=>$value){
-					if(strlen($value->value) <= $typeParam || $typeParam == ""){
-						$arr_retorno[] = "'".$value->value."'";
+				switch($type){
+					//data types
+					case 'date':{
+						foreach ($this->arr_ds_date as $key=>$value){
+							if(strlen($value->value) <= $typeParam || $typeParam == ""){
+								$arr_retorno[] = "'".$value->value."'";
+							}
+						}
+						break;
+					}	
+					case 'datetime':{					
+						foreach ($this->arr_ds_date as $key=>$value){
+							if(strlen($value->value) <= $typeParam || $typeParam == ""){
+								$arr_retorno[] = "'".$value->value."'";
+							}
+						}						
+						break;
+					}	
+					case 'timestamp':{
+						foreach ($this->arr_ds_date as $key=>$value){
+							if(strlen($value->value) <= $typeParam || $typeParam == ""){
+								$arr_retorno[] = "'".$value->value."'";
+							}
+						}
+						break;
+					}	
+					case 'time':{						
+						foreach ($this->arr_ds_date as $key=>$value){
+							if(strlen($value->value) <= $typeParam || $typeParam == ""){
+								$arr_retorno[] = "'".$value->value."'";
+							}
+						}		
+						break;
+					}	
+					case 'year':{						
+						foreach ($this->arr_ds_date as $key=>$value){
+							if(strlen($value->value) <= $typeParam || $typeParam == ""){
+								$arr_retorno[] = "'".$value->value."'";
+							}
+						}		
+						break;
+					}				
+					//text types
+					case 'varchar':{
+						//generate random string here	
+						foreach ($this->arr_ds_date as $key=>$value){
+							if(strlen($value->value) <= $typeParam || $typeParam == ""){
+								$arr_retorno[] = "'".$value->value."'";
+							}
+						}			
+						break;
 					}
+					case 'char':{						
+						foreach ($this->arr_ds_date as $key=>$value){
+							if(strlen($value->value) <= $typeParam || $typeParam == ""){
+								$arr_retorno[] = "'".$value->value."'";
+							}
+						}		
+						break;
+					}
+					case 'tinytext':{						
+						foreach ($this->arr_ds_date as $key=>$value){
+							if(strlen($value->value) <= $typeParam || $typeParam == ""){
+								$arr_retorno[] = "'".$value->value."'";
+							}
+						}		
+						break;
+					}
+					case 'text':{						
+						foreach ($this->arr_ds_date as $key=>$value){
+							if(strlen($value->value) <= $typeParam || $typeParam == ""){
+								$arr_retorno[] = "'".$value->value."'";
+							}
+						}		
+						break;
+					}
+					case 'mediumtext':{						
+						foreach ($this->arr_ds_date as $key=>$value){
+							if(strlen($value->value) <= $typeParam || $typeParam == ""){
+								$arr_retorno[] = "'".$value->value."'";
+							}
+						}		
+						break;
+					}
+					case 'longtext':{						
+						foreach ($this->arr_ds_date as $key=>$value){
+							if(strlen($value->value) <= $typeParam || $typeParam == ""){
+								$arr_retorno[] = "'".$value->value."'";
+							}
+						}		
+						break;
+					}
+
 				}
 				return $arr_retorno[array_rand($arr_retorno, 1)];
 			}
@@ -170,91 +259,19 @@ class Conn{
 			}else{
 				$type = $key[1];
 			}
-			switch ($type) {
-				//int types
-				case 'int':{
-					$arr_retorno[] = $this->dsDataGet('int', $typeParam, $key[3], $key[5], $table);
-					break;
-				}
-				case 'tinyint':{
-					$arr_retorno[] = $this->dsDataGet('tinyint', $typeParam, $key[3], $key[5], $table);
-					break;
-				}
-				case 'smallint':{
-					$arr_retorno[] = $this->dsDataGet('smallint', $typeParam, $key[3], $key[5], $table);
-					break;
-				}
-				case 'mediumint':{
-					$arr_retorno[] = $this->dsDataGet('mediumint', $typeParam, $key[3], $key[5], $table);
-					break;
-				}
-				case 'bigint':{
-					$arr_retorno[] = $this->dsDataGet('bigint', $typeParam, $key[3], $key[5], $table);
-					break;
-				}
-				case 'float':{
-					$arr_retorno[] = $this->dsDataGet('float', $typeParam, $key[3], $key[5], $table);
-					break;
-				}
-				case 'double':{
-					$arr_retorno[] = $this->dsDataGet('double', $typeParam, $key[3], $key[5], $table);
-					break;
-				}
-				case 'decimal':{
-					$arr_retorno[] = $this->dsDataGet('decimal', $typeParam, $key[3], $key[5], $table);
-					break;
-				}
-				//data types
-				case 'date':{
-					$arr_retorno[] = $this->dsDataGet('json/ds_date.json', $typeParam, $key[3], $key[5], $table);
-					break;
-				}	
-				case 'datetime':{
-					$arr_retorno[] = $this->dsDataGet('json/ds_datetime.json', $typeParam, $key[3], $key[5], $table);
-					break;
-				}	
-				case 'timestamp':{
-					$arr_retorno[] = $this->dsDataGet('json/ds_timestamp.json', $typeParam, $key[3], $key[5], $table);
-					break;
-				}	
-				case 'time':{
-					$arr_retorno[] = $this->dsDataGet('json/ds_time.json', $typeParam, $key[3], $key[5], $table);
-					break;
-				}	
-				case 'year':{
-					$arr_retorno[] = $this->dsDataGet('json/ds_year.json', $typeParam, $key[3], $key[5], $table);
-					break;
-				}				
-				//text types
-				case 'varchar':{
-					//generate random string here
-					$arr_retorno[] = $this->dsDataGet('json/ds_nomes.json', $typeParam, $key[3], $key[5], $table);
-					break;
-				}
-				case 'char':{
-					$arr_retorno[] = $this->dsDataGet('json/ds_char.json', $typeParam, $key[3], $key[5], $table);
-					break;
-				}
-				case 'tinytext':{
-					$arr_retorno[] = $this->dsDataGet('json/ds_text.json', $typeParam, $key[3], $key[5], $table);
-					break;
-				}
-				case 'text':{
-					$arr_retorno[] = $this->dsDataGet('json/ds_text.json', $typeParam, $key[3], $key[5], $table);
-					break;
-				}
-				case 'mediumtext':{
-					$arr_retorno[] = $this->dsDataGet('json/ds_text.json', $typeParam, $key[3], $key[5], $table);
-					break;
-				}
-				case 'longtext':{
-					$arr_retorno[] = $this->dsDataGet('json/ds_text.json', $typeParam, $key[3], $key[5], $table);
-					break;
-				}
-			}
-		}
-		return implode (", ", $arr_retorno);
+
+			//PAREI AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+			//IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+			$arr_retorno = $this->dsDataGet($type, $typeParam, $key, $extra, $table);
+			/*
+						foreach ($this->arr_ds_date as $key=>$value){
+							if(strlen($value->value) <= $typeParam || $typeParam == ""){
+								$arr_retorno[] = "'".$value->value."'";
+							}
+						}*/
+			return implode (", ", $arr_retorno);
 	}
+}
 ##Public Functions
 	##Connection Functions
 	##Sets Functions
@@ -320,7 +337,6 @@ class Conn{
 		 }
 		 return $arr_retorno;
 	}
-/*
 	public function massiveInsert($table, $qtd=1){
 		$arr = $this->describeTable($table);
 		for($i = 0; $i < $qtd; $i++){
@@ -330,14 +346,13 @@ class Conn{
 			$insert = $this->conn_obj->query($sql);
 		}
 	}
-*/
 	##Error Functions
 	public function getError(){
 		return $this->conn_error;
 	}
 	##teste de saída
-	public function massiveInsert($a, $b){
+	/*public function massiveInsert($a, $b){
 		echo "lala";
-	}
+	}*/
 }
 ?>
