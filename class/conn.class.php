@@ -135,9 +135,9 @@ class Conn{
 			if($key == 'MUL'){
 				return $this->checkForeignTable($table);
 			}
-			if($type == 'int' || $ds == 'tinyint' || $ds == 'smallint' || $ds == 'mediumint' || $ds == 'bigint'){
+			if($type == 'int' || $type == 'tinyint' || $type == 'smallint' || $type == 'mediumint' || $type == 'bigint'){
 				return rand(0, 9999);
-			}else if($type == 'float' || $ds == 'double' || $ds == 'decimal'){
+			}else if($type == 'float' || $type == 'double' || $type == 'decimal'){
 				return $this->f_rand(0, 9999, 100000);
 			}else{
 				$arr_retorno = array();
@@ -145,91 +145,69 @@ class Conn{
 					//data types
 					case 'date':{
 						foreach ($this->arr_ds_date as $key=>$value){
-							if(strlen($value->value) <= $typeParam || $typeParam == ""){
-								$arr_retorno[] = "'".$value->value."'";
-							}
+							$arr_retorno[] = "'".$value->value."'";
 						}
 						break;
 					}	
 					case 'datetime':{					
-						foreach ($this->arr_ds_date as $key=>$value){
-							if(strlen($value->value) <= $typeParam || $typeParam == ""){
-								$arr_retorno[] = "'".$value->value."'";
-							}
+						foreach ($this->arr_ds_datetime as $key=>$value){
+							$arr_retorno[] = "'".$value->value."'";
 						}						
 						break;
 					}	
 					case 'timestamp':{
-						foreach ($this->arr_ds_date as $key=>$value){
-							if(strlen($value->value) <= $typeParam || $typeParam == ""){
-								$arr_retorno[] = "'".$value->value."'";
-							}
+						foreach ($this->arr_ds_timestamp as $key=>$value){
+							$arr_retorno[] = "'".$value->value."'";
 						}
 						break;
 					}	
 					case 'time':{						
-						foreach ($this->arr_ds_date as $key=>$value){
-							if(strlen($value->value) <= $typeParam || $typeParam == ""){
-								$arr_retorno[] = "'".$value->value."'";
-							}
+						foreach ($this->arr_ds_time as $key=>$value){
+							$arr_retorno[] = "'".$value->value."'";
 						}		
 						break;
-					}	
+					}
 					case 'year':{						
-						foreach ($this->arr_ds_date as $key=>$value){
-							if(strlen($value->value) <= $typeParam || $typeParam == ""){
-								$arr_retorno[] = "'".$value->value."'";
-							}
+						foreach ($this->arr_ds_year as $key=>$value){
+							$arr_retorno[] = "'".$value->value."'";
 						}		
 						break;
 					}				
 					//text types
 					case 'varchar':{
 						//generate random string here	
-						foreach ($this->arr_ds_date as $key=>$value){
-							if(strlen($value->value) <= $typeParam || $typeParam == ""){
-								$arr_retorno[] = "'".$value->value."'";
-							}
+						foreach ($this->arr_ds_nomes as $key=>$value){
+							$arr_retorno[] = "'".$value->value."'";
 						}			
 						break;
 					}
 					case 'char':{						
-						foreach ($this->arr_ds_date as $key=>$value){
-							if(strlen($value->value) <= $typeParam || $typeParam == ""){
-								$arr_retorno[] = "'".$value->value."'";
-							}
+						foreach ($this->arr_ds_char as $key=>$value){
+							$arr_retorno[] = "'".$value->value."'";
 						}		
 						break;
 					}
 					case 'tinytext':{						
-						foreach ($this->arr_ds_date as $key=>$value){
-							if(strlen($value->value) <= $typeParam || $typeParam == ""){
-								$arr_retorno[] = "'".$value->value."'";
-							}
+						foreach ($this->arr_ds_text as $key=>$value){
+							$arr_retorno[] = "'".$value->value."'";
 						}		
 						break;
 					}
 					case 'text':{						
-						foreach ($this->arr_ds_date as $key=>$value){
-							if(strlen($value->value) <= $typeParam || $typeParam == ""){
-								$arr_retorno[] = "'".$value->value."'";
-							}
+						foreach ($this->arr_ds_text as $key=>$value){
+							$arr_retorno[] = "'".$value->value."'";
 						}		
 						break;
 					}
 					case 'mediumtext':{						
-						foreach ($this->arr_ds_date as $key=>$value){
-							if(strlen($value->value) <= $typeParam || $typeParam == ""){
-								$arr_retorno[] = "'".$value->value."'";
-							}
+						foreach ($this->arr_ds_text as $key=>$value){
+							$arr_retorno[] = "'".$value->value."'";
 						}		
 						break;
 					}
 					case 'longtext':{						
-						foreach ($this->arr_ds_date as $key=>$value){
-							if(strlen($value->value) <= $typeParam || $typeParam == ""){
-								$arr_retorno[] = "'".$value->value."'";
-							}
+						foreach ($this->arr_ds_text as $key=>$value){
+							$arr_retorno[] = "'".$value->value."'";
 						}		
 						break;
 					}
@@ -262,16 +240,16 @@ class Conn{
 
 			//PAREI AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 			//IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
-			//deve retornar um array
-			$arr_retorno = $this->dsDataGet($type, $typeParam, $key, $extra, $table);
+			//FALTA FAZER A VERIFICACAO DE TAMANHO DO TIPO VARCHAR, ESTA DANDO ERROE INSERINDO MENOS DADOS
+			$arr_retorno[] = $this->dsDataGet($type, $typeParam, $key[3], $key[5], $table);
 			/*
 						foreach ($this->arr_ds_date as $key=>$value){
 							if(strlen($value->value) <= $typeParam || $typeParam == ""){
 								$arr_retorno[] = "'".$value->value."'";
 							}
 						}*/
-			return implode (", ", $arr_retorno);
 	}
+	return implode (", ", $arr_retorno);
 }
 ##Public Functions
 	##Connection Functions
@@ -342,9 +320,9 @@ class Conn{
 		$arr = $this->describeTable($table);
 		for($i = 0; $i < $qtd; $i++){
 			$values = $this->generateRandomInsert($table, $arr); //retorna string
-			echo "\n".$values;
 			$sql = "INSERT INTO {$table} VALUES({$values});";
-			$insert = $this->conn_obj->query($sql);
+			echo $sql." ";
+			$this->conn_obj->query($sql);
 		}
 	}
 	##Error Functions
