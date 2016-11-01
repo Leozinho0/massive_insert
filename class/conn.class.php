@@ -262,6 +262,7 @@ class Conn{
 
 			//PAREI AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 			//IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+			//deve retornar um array
 			$arr_retorno = $this->dsDataGet($type, $typeParam, $key, $extra, $table);
 			/*
 						foreach ($this->arr_ds_date as $key=>$value){
@@ -350,9 +351,5 @@ class Conn{
 	public function getError(){
 		return $this->conn_error;
 	}
-	##teste de saída
-	/*public function massiveInsert($a, $b){
-		echo "lala";
-	}*/
 }
 ?>
