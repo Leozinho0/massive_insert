@@ -177,37 +177,49 @@ class Conn{
 					case 'varchar':{
 						//generate random string here	
 						foreach ($this->arr_ds_nomes as $key=>$value){
-							$arr_retorno[] = "'".$value->value."'";
+							if(strlen($value->value) <= $typeParam || $typeParam == ""){
+								$arr_retorno[] = "'".$value->value."'";
+							}
 						}			
 						break;
 					}
 					case 'char':{						
 						foreach ($this->arr_ds_char as $key=>$value){
-							$arr_retorno[] = "'".$value->value."'";
+							if(strlen($value->value) <= $typeParam || $typeParam == ""){
+								$arr_retorno[] = "'".$value->value."'";
+							}
 						}		
 						break;
 					}
 					case 'tinytext':{						
 						foreach ($this->arr_ds_text as $key=>$value){
-							$arr_retorno[] = "'".$value->value."'";
+							if(strlen($value->value) <= 10){
+								$arr_retorno[] = "'".$value->value."'";
+							}
 						}		
 						break;
 					}
 					case 'text':{						
 						foreach ($this->arr_ds_text as $key=>$value){
-							$arr_retorno[] = "'".$value->value."'";
+							if(strlen($value->value) <= $typeParam || $typeParam == ""){
+								$arr_retorno[] = "'".$value->value."'";
+							}
 						}		
 						break;
 					}
 					case 'mediumtext':{						
 						foreach ($this->arr_ds_text as $key=>$value){
-							$arr_retorno[] = "'".$value->value."'";
+							if(strlen($value->value) <= $typeParam || $typeParam == ""){
+								$arr_retorno[] = "'".$value->value."'";
+							}
 						}		
 						break;
 					}
 					case 'longtext':{						
 						foreach ($this->arr_ds_text as $key=>$value){
-							$arr_retorno[] = "'".$value->value."'";
+							if(strlen($value->value) <= $typeParam || $typeParam == ""){
+								$arr_retorno[] = "'".$value->value."'";
+							}
 						}		
 						break;
 					}
@@ -241,6 +253,7 @@ class Conn{
 			//PAREI AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 			//IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 			//FALTA FAZER A VERIFICACAO DE TAMANHO DO TIPO VARCHAR, ESTA DANDO ERROE INSERINDO MENOS DADOS
+			//Ja fiz em VARCHAR
 			$arr_retorno[] = $this->dsDataGet($type, $typeParam, $key[3], $key[5], $table);
 			/*
 						foreach ($this->arr_ds_date as $key=>$value){
