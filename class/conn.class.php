@@ -148,13 +148,23 @@ class Conn{
 							$arr_retorno[] = "'".$value->value."'";
 						}
 						break;
-					}	
-					case 'datetime':{					
-						foreach ($this->arr_ds_datetime as $key=>$value){
-							$arr_retorno[] = "'".$value->value."'";
-						}						
+					}
+					case 'datetime':{
+						$arr_date = array();
+						$arr_time = array();
+						$date = "";
+						$time = "";
+						foreach ($this->arr_ds_date as $key=>$value){
+							$arr_date[] = $value->value;
+						}
+						$date = $arr_date[array_rand($arr_date, 1)];
+						foreach ($this->arr_ds_time as $key=>$value){
+							$arr_time[] = $value->value;
+						}
+						$time = $arr_time[array_rand($arr_time, 1)];
+						$arr_retorno[] = "'".$date." ".$time."'";
 						break;
-					}	
+					}
 					case 'timestamp':{
 						foreach ($this->arr_ds_timestamp as $key=>$value){
 							$arr_retorno[] = "'".$value->value."'";
