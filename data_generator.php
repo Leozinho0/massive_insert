@@ -20,7 +20,6 @@
 	}
 */
 //For time
-/*
 	for($hour = 0; $hour <= 23; $hour++){
 				$hour = sprintf("%02d", $hour);
 		for($min = 0; $min <= 59; $min++){
@@ -33,11 +32,10 @@
 
 				echo "{
 		\"value\": \"{$hour}-{$min}-{$sec}\"
-	},";
+	},<br>";
 			}
 		}
 	}
-*/
 
 //for year
 /*
