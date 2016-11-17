@@ -2,11 +2,7 @@ body{
 	color: #333333;
 	font-family: Century Gothic, sans-serif;
 	background-color: #E0E0E0;
-	background-size: cover;
 	margin: 0;
-}
-.hidden{
-	display: none;
 }
 .box_logo{
 	padding: 20px;
@@ -44,24 +40,22 @@ body{
 	background-color: #CDC9C9;
 }
 .box_error{
-	display: none;
 	margin: 10px auto;
 	border-radius: 5px;
 	border: 1px solid #95A5A6;
 	padding: 10px;
 	width: 400px;
+    color: #D8000C;
+    background-color: #FFBABA;
 	box-shadow: 3px 4px 10px #95A5A6;
 	text-align: center;
 	font-size: 15px;
 }
 .input{
-	width: 100%;
+	width: 90%;
 }
 select{
-	width: 109%;			
-}
-#btn_insert{
-	display: none;
+	width: 100%;	
 }
 #div_block{
 	display: none;
@@ -70,6 +64,9 @@ select{
     height: 100%;
     left: 0;
     top: 0;
+}
+#div_tools{
+	background-color: green;
 }
 #div_loading{
 	display: none;
@@ -83,20 +80,20 @@ select{
 	text-align: center;
 	font-size: 15px;
 }
-#div_connection_error{
-    color: #D8000C;
-    background-color: #FFBABA;
-}
-#div_message_success{
+#div_message{
+	display: none;
+	margin: 10px auto;
+	border-radius: 5px;
+	border: 1px solid #95A5A6;
+	padding: 10px;
+	width: 400px;
 	color: #4F8A10;
 	background-color: #DFF2BF;
-}
-#div_message_error{
-    color: #D8000C;
-    background-color: #FFBABA;
+	box-shadow: 3px 4px 10px #95A5A6;
+	text-align: center;
+	font-size: 15px;
 }
 table{
 	table-layout: fixed;
 	width: 100%;
-	padding-right: 15px;
 }
