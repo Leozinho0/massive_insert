@@ -56,13 +56,22 @@ function js_insert(){
 			$('#div_block').hide();
 			$('#div_loading').hide();
 			var mensagem = quantidade+" registro(s) inserido(s) com sucesso!";
+			//Modo Debug - Verde
 			if(debug){
 				$('#div_message').html(ds);
 				$('#div_message').fadeIn();
-			}else{
+			}
+			//Modo Normal - Verde
+			else if(!debug){
 				$('#div_message').html(mensagem);
 				$('#div_message').fadeIn();
 			}
+			//Modo Erro - Vermelha
+			//Create IF condition
+			/*else if(1){
+				$('#div_error').html(ds);
+				$('#div_error').fadeIn();
+			}*/
 		}
 	});
 }

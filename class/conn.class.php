@@ -135,7 +135,9 @@ class Conn{
 			if($key == 'MUL'){
 				return $this->checkForeignTable($table);
 			}
-			if($type == 'int' || $type == 'tinyint' || $type == 'smallint' || $type == 'mediumint' || $type == 'bigint'){
+			if($type == 'tinyint'){
+				return rand(-127, 128);
+			}else if($type == 'int' || $type == 'smallint' || $type == 'mediumint' || $type == 'bigint'){
 				return rand(0, 9999);
 			}else if($type == 'float' || $type == 'double' || $type == 'decimal'){
 				return $this->f_rand(0, 9999, 100000);
@@ -166,7 +168,7 @@ class Conn{
 						break;
 					}
 					case 'timestamp':{
-						foreach ($this->arr_ds_timestamp as $key=>$value){
+						foreach ($this->arr_ds_date as $key=>$value){
 							$arr_retorno[] = "'".$value->value."'";
 						}
 						break;
@@ -344,7 +346,7 @@ class Conn{
 		for($i = 0; $i < $qtd; $i++){
 			$values = $this->generateRandomInsert($table, $arr); //retorna string
 			$sql = "INSERT INTO {$table} VALUES({$values});";
-			echo $sql." ";
+			echo $sql."<br>";
 			$this->conn_obj->query($sql);
 		}
 	}
