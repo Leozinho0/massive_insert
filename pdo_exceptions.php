@@ -6,15 +6,24 @@ try{
 	echo $e->getMessage();
 }
 
-/*
-	$conn->query("use yp;");
-	$conn->query("INSERT INTO infeedweights VALUES(-62, '2005-04-10', 5171.46649);");
 
-	print_r($conn->errorInfo());
-*/
+	$conn->query("use ypa;");
+	//$conn->query("INSERT INTO infeedweights VALUES(-62, '2005-04-10', 5171.46649);");
+
+	$error = $conn->errorInfo();
+	if($error[0] == 00000){
+		echo "erro vazio!";
+	}else{
+		print_r($error);
+	}
 
 
 
+try{
+
+}catch(PDOException $e){
+	
+}
 
 
 ?>

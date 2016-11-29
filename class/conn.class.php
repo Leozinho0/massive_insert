@@ -343,12 +343,22 @@ class Conn{
 	}
 	public function massiveInsert($table, $qtd=1){
 		$arr = $this->describeTable($table);
+		//Declaração do array que vai retornar pro Javascript
+		$arr_retorno = array();	
 		for($i = 0; $i < $qtd; $i++){
 			$values = $this->generateRandomInsert($table, $arr); //retorna string
 			$sql = "INSERT INTO {$table} VALUES({$values});";
-			echo $sql."<br>";
+			//echo $sql."<br>";
 			$this->conn_obj->query($sql);
+			//checkagem de erro - errorInfo() retorna array[0]=>00000 quando não existe erro;
+			$error = $this->conn_obj->errorInfo();
+			if($error[0] == "00000"){
+				$arr_retorno[] = $sql."<br>";
+			}else{
+				$arr_retorno = $error;
+			}
 		}
+		return json_encode($arr_retorno);
 	}
 	##Error Functions
 	public function getError(){
