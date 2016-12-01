@@ -23,7 +23,6 @@ class Conn{
 	private $arr_ds_time;
 	private $arr_ds_timestamp;
 	private $arr_ds_year;
-
 ##Constructors
 	##Complete
 	function __construct($sgbd, $address, $user, $pwd){
@@ -39,8 +38,6 @@ class Conn{
 
 		//sintaxe para pegar echo $this->arr_ds_char[0]->value;
 	}
-
-
 ##Private functions
 	private function connect($sgbd, $address, $user, $pwd){
 		try{
@@ -83,7 +80,6 @@ class Conn{
 				from
 				    information_schema.key_column_usage
 				where table_name = '{$table}';";
-
 		$arr_retorno = array();
 		$a = $this->conn_obj->query($sql);
 		foreach($a as $describe)
@@ -92,7 +88,6 @@ class Conn{
 				$posIni = strpos($describe[1], ".");
 				$table_foreign = substr($describe[1], 0, $posIni);
 				$column_foreign = substr($describe[1], $posIni+1);
-
 				$sql = "select count(*) from {$table_foreign};";
 				$a = $this->conn_obj->query($sql);
 				foreach($a as $describe)
@@ -115,8 +110,7 @@ class Conn{
 							return $arr_retorno[array_rand($arr_retorno, 1)][0];
 						}else{
 							return "'".$arr_retorno[array_rand($arr_retorno, 1)][0]."'";
-						}
-						
+						}	
 				 	}
 				}
 			}
@@ -128,7 +122,6 @@ class Conn{
 	//$key: campo key do describe table que diz se é chave estrangeira
 	//extra: Last field of the describe ask for auto_increment
 	private function dsDataGet($type, $typeParam, $key, $extra, $table){
-
 		if($extra == 'auto_increment'){
 			return 'NULL';
 		}else{
@@ -235,7 +228,6 @@ class Conn{
 						}		
 						break;
 					}
-
 				}
 				return $arr_retorno[array_rand($arr_retorno, 1)];
 			}
@@ -253,7 +245,6 @@ class Conn{
 			if(strpos($key[1], "(")){
 				$posIni = strpos($key[1], "(");
 				$posFin = strpos($key[1], ")");
-
 				$type = substr($key[1], 0, $posIni);
 				$typeParam = substr ($key[1], $posIni+1, $posFin-1);
 				//esse pos n tava pegando, dai dei um replace
@@ -261,7 +252,6 @@ class Conn{
 			}else{
 				$type = $key[1];
 			}
-
 			//PAREI AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 			//IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 			//FALTA FAZER A VERIFICACAO DE TAMANHO DO TIPO VARCHAR, ESTA DANDO ERROE INSERINDO MENOS DADOS
@@ -324,7 +314,6 @@ class Conn{
 	public function showDatabases(){
 		 $arr_retorno = array();
 		 $a = $this->conn_obj->query("SHOW DATABASES;");
-
 		 foreach($a as $db)
 		 {
 		 	$arr_retorno[] = $db;
@@ -334,7 +323,6 @@ class Conn{
 	public function showTables($base){
 		 $arr_retorno = array();
 		 $a = $this->conn_obj->query("SHOW TABLES;");
-
 		 foreach($a as $db)
 		 {
 		 	$arr_retorno[] = $db;
