@@ -35,7 +35,6 @@ class Conn{
 		$this->arr_ds_time = json_decode (file_get_contents("json/ds_time.json"));
 		$this->arr_ds_timestamp = json_decode (file_get_contents("json/ds_timestamp.json"));
 		$this->arr_ds_year = json_decode (file_get_contents("json/ds_year.json"));
-
 		//sintaxe para pegar echo $this->arr_ds_char[0]->value;
 	}
 ##Private functions
@@ -332,21 +331,27 @@ class Conn{
 	public function massiveInsert($table, $qtd=1){
 		$arr = $this->describeTable($table);
 		//Declaração do array que vai retornar pro Javascript
-		$arr_retorno = array();	
+		$arr_retorno = array();
 		for($i = 0; $i < $qtd; $i++){
 			$values = $this->generateRandomInsert($table, $arr); //retorna string
 			$sql = "INSERT INTO {$table} VALUES({$values});";
 			//echo $sql."<br>";
 			$this->conn_obj->query($sql);
-			//checkagem de erro - errorInfo() retorna array[0]=>00000 quando não existe erro;
+			//Este trecho de código verifica, através do retorno da função errorInfo() do PHP,
+			//se ocorrue algum erro na execução da query acima ^. Caso positivo (retorno diferente de 00000),
+			//pega o erro e retorna esse erro.
+			//Caso não exista erro, retorna UM ARRAY com os inserts;
+			//OBS.: A função errorInfo() retorna um array.
 			$error = $this->conn_obj->errorInfo();
 			if($error[0] == "00000"){
+				$arr_retorno[0] = '';
 				$arr_retorno[] = $sql."<br>";
 			}else{
-				$arr_retorno = $error;
+				$arr_retorno[0] = 'ERRO!<br>';
+				$arr_retorno[] = $error;
 			}
 		}
-		return json_encode($arr_retorno);
+		echo json_encode($arr_retorno);
 	}
 	##Error Functions
 	public function getError(){

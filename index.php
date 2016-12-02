@@ -64,9 +64,6 @@
 			<span>Conectar</span>
 		</div>
 	</div>
-	<!--Div ERRORS -->
-	<div style="display:none;" id="div_error" class="box_error">
-	</div>
 	<!--Div LOADING AJAX-->
 	<div id="div_block">
 	</div>
@@ -132,6 +129,9 @@
 	<div id="div_loading">
 		<img src="http://s1.ticketm.net/tm/en-us/img/sys/1000/gray75_polling.gif" alt="" width="30px"/> <br>
 		<span>Inserindo dados... Aguarde!</span>
+	</div>
+	<!--Div ERRORS -->
+	<div style="display:none;" id="div_error" class="box_error">
 	</div>
 </body>
 </html>
