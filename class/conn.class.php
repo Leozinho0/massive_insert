@@ -339,8 +339,8 @@ class Conn{
 			$this->conn_obj->query($sql);
 			//Este trecho de código verifica, através do retorno da função errorInfo() do PHP,
 			//se ocorrue algum erro na execução da query acima ^. Caso positivo (retorno diferente de 00000),
-			//pega o erro e retorna esse erro.
-			//Caso não exista erro, retorna UM ARRAY com os inserts;
+			//joga o erro pro array[1] em diante (o [0] é pra verificar no javascript).
+			//Caso não exista erro, retorna UM ARRAY com os inserts a partir do [1] (o [0] tbm é pra verificar no Javascript.);
 			//OBS.: A função errorInfo() retorna um array.
 			$error = $this->conn_obj->errorInfo();
 			if($error[0] == "00000"){
