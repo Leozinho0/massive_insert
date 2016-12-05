@@ -62,19 +62,19 @@ function js_insert(){
 			arr = JSON.parse(ds);
 			//if->Modo Debug
 			//else->Modo Normal
-			if(debug){
 				//if->Sem erro->Mostra a query
 				//else->Erro->Mostra o info do erro
-				if(arr[0] == ''){
+			if(arr[0] == ''){
+				if(debug){
 					$('#div_message').html(arr);
 					$('#div_message').fadeIn();
 				}else{
-					$('#div_error').html(arr);
-					$('#div_error').fadeIn();
-				}
-			}else if(!debug){
-				$('#div_message').html(mensagem);
-				$('#div_message').fadeIn();
+					$('#div_message').html(mensagem);
+					$('#div_message').fadeIn();
+				}	
+			}else{
+				$('#div_error').html(arr);
+				$('#div_error').fadeIn();
 			}
 		}
 	});

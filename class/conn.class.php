@@ -92,8 +92,7 @@ class Conn{
 				foreach($a as $describe)
 				 {
 				 	if($describe[0] == 0){
-						echo "You need to populate {$table_foreign} first!";
-						return false;
+						return $table_foreign;
 				 	}else{
 				 		$sql = "select {$column_foreign} from {$table_foreign};";
 				 		$a = $this->conn_obj->query($sql);
@@ -124,9 +123,11 @@ class Conn{
 		if($extra == 'auto_increment'){
 			return 'NULL';
 		}else{
+			/*
 			if($key == 'MUL'){
-				return $this->checkForeignTable($table);
-			}
+				$foreign_table =  $this->checkForeignTable($table);
+				return $foreign_table;
+			}*/
 			if($type == 'tinyint'){
 				return rand(-127, 128);
 			}else if($type == 'int' || $type == 'smallint' || $type == 'mediumint' || $type == 'bigint'){
@@ -334,6 +335,7 @@ class Conn{
 		$arr_retorno = array();
 		for($i = 0; $i < $qtd; $i++){
 			$values = $this->generateRandomInsert($table, $arr); //retorna string
+
 			$sql = "INSERT INTO {$table} VALUES({$values});";
 			//echo $sql."<br>";
 			$this->conn_obj->query($sql);
@@ -346,6 +348,10 @@ class Conn{
 			if($error[0] == "00000"){
 				$arr_retorno[0] = '';
 				$arr_retorno[] = $sql."<br>";
+			}else if($error[0] == "23000"){
+				$tabela_fk = $this->checkForeignTable($table);
+				$arr_retorno[0] = "ERRO!<br>Tabela com chave estrangeira!<br>Popular tabela {$tabela_fk} primeiro!<br>";
+				$arr_retorno[] = $error;
 			}else{
 				$arr_retorno[0] = 'ERRO!<br>';
 				$arr_retorno[] = $error;
