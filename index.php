@@ -60,8 +60,8 @@
 				</tr>
 			</table>
 		</div>
-		<div onclick="js_conn();" class="div_btn">
-			<span>Conectar</span>
+		<div onclick="js_conn();" class="div_btn" id="button_connect">
+			<span onclick="togle();">Conectar</span>
 		</div>
 	</div>
 	<!--Div LOADING AJAX-->
@@ -133,5 +133,6 @@
 	<!--Div ERRORS -->
 	<div style="display:none;" id="div_error" class="box_error">
 	</div>
+
 </body>
 </html>

@@ -39,6 +39,16 @@ body{
 .div_btn:active{
 	background-color: #CDC9C9;
 }
+
+.div_btn_disabled{
+	background-color: #dddddd;
+	color: gray;
+	width: 100px;
+	margin: 10px auto;
+	border-radius: 5px;
+	text-align: center;
+	padding: 4px;
+}
 .box_error{
 	margin: 10px auto;
 	border-radius: 5px;

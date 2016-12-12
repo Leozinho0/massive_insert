@@ -88,6 +88,7 @@ function js_conn(){
 		success: function(ds){
 			if(ds == "y"){
 				$('#div_error').hide();
+				disable_btn('div_btn_disabled');
 				js_listBases();
 			}else {
 				$('#div_error').html(ds);
@@ -95,4 +96,7 @@ function js_conn(){
 			}
 		}
 	});
+}
+function disable_btn(class_name){
+	$('#button_connect').toggleClass(class_name);
 }
