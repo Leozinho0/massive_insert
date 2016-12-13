@@ -17,7 +17,7 @@
 			<span>Database Populator</span>
 		</div>
 	</div>
-	<div class="box_center">
+	<div id="div_conexao" class="box_center">
 		<div>
 			<table>
 				<tr>
@@ -74,7 +74,7 @@
 				<tr>
 					<td>Base</td>
 					<td>
-						<select id="id_bases" onchange="js_listTables();">
+						<select id="id_bases" onchange="js_listTables(); insert_enable('div_btn_disabled', 'div_btn'); ">
 						</select>
 					</td>
 				</tr>
@@ -113,7 +113,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td>Modo Debug</td>
+					<td>Modo Desenvolvedor</td>
 					<td>
 						<input type="radio" name="debug" value="on" id="debug">On
 						<input type="radio"  name="debug" checked="checked">Off
@@ -121,7 +121,7 @@
 				</tr>
 			</table>
 		</div>
-		<div class="div_btn" onclick="js_insert();">Inserir</div>
+		<div id="button_insert" class="div_btn_disabled" onclick="js_insert();">Inserir</div>
 	</div>
 	<!--Div Message Success -->
 	<div id="div_message">

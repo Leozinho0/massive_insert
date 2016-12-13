@@ -59,12 +59,13 @@ function js_insert(){
 			var mensagem = quantidade+" registro(s) inserido(s) com sucesso!";
 			//1.Ds retorna um objeto JSON. Fazer um JSON.parse
 			//2.Verificação do retorno ds. Pode ser um erro ds.[0] -> erro!
-			arr = JSON.parse(ds);
-			//if->Modo Debug
-			//else->Modo Normal
+			try{
+				arr = JSON.parse(ds);
+				//if->Modo Debug
+				//else->Modo Normal
 				//if->Sem erro->Mostra a query
 				//else->Erro->Mostra o info do erro
-			if(arr[0] == ''){
+				if(arr[0] == ''){
 				if(debug){
 					$('#div_message').html(arr);
 					$('#div_message').fadeIn();
@@ -72,8 +73,12 @@ function js_insert(){
 					$('#div_message').html(mensagem);
 					$('#div_message').fadeIn();
 				}	
-			}else{
+			}else if(arr[0] == 'ERRO!'){
 				$('#div_error').html(arr);
+				$('#div_error').fadeIn();
+			}
+			}catch(e){
+				$('#div_error').html(ds);
 				$('#div_error').fadeIn();
 			}
 		}
@@ -88,7 +93,7 @@ function js_conn(){
 		success: function(ds){
 			if(ds == "y"){
 				$('#div_error').hide();
-				disable_btn('div_btn_disabled');
+				conn_disable('div_btn','div_btn_disabled');
 				js_listBases();
 			}else {
 				$('#div_error').html(ds);
@@ -97,6 +102,16 @@ function js_conn(){
 		}
 	});
 }
-function disable_btn(class_name){
-	$('#button_connect').toggleClass(class_name);
+
+//TORNAR ESSAS FUNÇÕES UMA SÓ, POSTERIORMENTE
+//Fiz assim pq tava com preguiça
+function conn_disable(class_name_remove, class_name_add){
+	//Desativar botão 'conectar' trocando classes:
+	$('#button_connect').removeClass(class_name_remove).addClass(class_name_add);
+	//destaivar elementos da div:
+	$('#div_conexao :input').attr('disabled', true);
+}
+function insert_enable(class_name_remove, class_name_add){
+	//Desativar botão 'conectar' trocando classes:
+	$('#button_insert').removeClass(class_name_remove).addClass(class_name_add);
 }

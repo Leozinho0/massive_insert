@@ -48,6 +48,7 @@ body{
 	border-radius: 5px;
 	text-align: center;
 	padding: 4px;
+	pointer-events: none;
 }
 .box_error{
 	margin: 10px auto;

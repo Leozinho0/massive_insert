@@ -185,7 +185,7 @@ class Conn{
 							if(strlen($value->value) <= $typeParam || $typeParam == ""){
 								$arr_retorno[] = "'".$value->value."'";
 							}
-						}			
+						}		
 						break;
 					}
 					case 'char':{						
