@@ -66,17 +66,17 @@ function js_insert(){
 				//if->Sem erro->Mostra a query
 				//else->Erro->Mostra o info do erro
 				if(arr[0] == ''){
-				if(debug){
-					$('#div_message').html(arr);
-					$('#div_message').fadeIn();
-				}else{
-					$('#div_message').html(mensagem);
-					$('#div_message').fadeIn();
-				}	
-			}else if(arr[0] == 'ERRO!'){
-				$('#div_error').html(arr);
-				$('#div_error').fadeIn();
-			}
+					if(debug){
+						$('#div_message').html(arr);
+						$('#div_message').fadeIn();
+					}else{
+						$('#div_message').html(mensagem);
+						$('#div_message').fadeIn();
+					}	
+				}else if(arr[0] == 'ERRO!<br>'){
+					$('#div_error').html(arr);
+					$('#div_error').fadeIn();
+				}
 			}catch(e){
 				$('#div_error').html(ds);
 				$('#div_error').fadeIn();

@@ -350,7 +350,8 @@ class Conn{
 				$arr_retorno[] = $sql."<br>";
 			}else if($error[0] == "23000"){
 				$tabela_fk = $this->checkForeignTable($table);
-				$arr_retorno[0] = "ERRO!<br>Tabela com chave estrangeira!<br>Popular tabela {$tabela_fk} primeiro!<br>";
+				$arr_retorno[0] = "ERRO!<br>";
+				$arr_retorno[1] = "Tabela com chave estrangeira!<br>Popular tabela {$tabela_fk} primeiro!<br>";
 				$arr_retorno[] = $error;
 			}else{
 				$arr_retorno[0] = 'ERRO!<br>';
