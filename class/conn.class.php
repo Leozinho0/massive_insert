@@ -3,6 +3,7 @@
 ##This classes creates a connection object of a SGBD type
 ##Paramentes passed: SGBD(mysql), address, user, password 
 ##
+## TINYBLOB, BLOB, MEDIUMBLOB, and LONGBLOB NOT DEFINED YET
 class Conn{
 ##Conection Variables
 	private $conn_sgbd;
@@ -68,10 +69,12 @@ class Conn{
 		 }
 		 return $arr_retorno;
 	}
+
+	//APAGAR ISSO AQUI - NÃO PECISA MAIS
 	//Parametro - Tabela que tem a foreign
 	//Função checka se tabela foreign tem dados. Senão tiverm retorna false, se tiver--->
 	//Função retorna um numero ou string em aspas simples que é o resultado de um select na foreign key
-	private function checkForeignTable($table){
+	/*private function checkForeignTable($table){
 		$sql = "select
 				    concat(table_name, '.', column_name) as 'foreign key',
 				    concat(referenced_table_name, '.', referenced_column_name) as 'references',
@@ -114,6 +117,7 @@ class Conn{
 			}
 		}
 	}
+	*/
 	//Função retorna um random numero ou string entre aspas simples para popular uma tabela
 	//Checka se a a tabela possui chave estrangeira e então retorna um registro dq tabela foreign
 	//Parmetros: ds: Dataset Json do tipo de dado. $TypeParam: Parêntesis do tipo de dado (exeplo varchat(100))
@@ -228,6 +232,15 @@ class Conn{
 						}		
 						break;
 					}
+					case 'blob':{						
+						/*foreach ($this->arr_ds_text as $key=>$value){
+							if(strlen($value->value) <= $typeParam || $typeParam == ""){
+								$arr_retorno[] = "'".$value->value."'";
+							}
+						}
+						$arr_retorno[] = 
+						break;*/
+					}
 				}
 				return $arr_retorno[array_rand($arr_retorno, 1)];
 			}
@@ -254,7 +267,7 @@ class Conn{
 			}
 			//PAREI AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 			//IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
-			//FALTA FAZER A VERIFICACAO DE TAMANHO DO TIPO VARCHAR, ESTA DANDO ERROE INSERINDO MENOS DADOS
+			//FALTA FAZER A VERIFICACAO DE TAMANHO DO TIPO VARCHAR, ESTA DANDO ERRO E INSERINDO MENOS DADOS
 			//Ja fiz em VARCHAR
 			$arr_retorno[] = $this->dsDataGet($type, $typeParam, $key[3], $key[5], $table);
 			/*
@@ -349,10 +362,15 @@ class Conn{
 				$arr_retorno[0] = '';
 				$arr_retorno[] = $sql."<br>";
 			}else if($error[0] == "23000"){
-				$tabela_fk = $this->checkForeignTable($table);
+				//$tabela_fk = $this->checkForeignTable($table);
+				$pos1 = strpos($error[2], 'REFERENCES `');
+				$pos1 = $pos1 + 12;
+				$tabela_fk = substr($error[2] , $pos1, -9);
+				//echo $tabela_fk;
+
 				$arr_retorno[0] = "ERRO!<br>";
 				$arr_retorno[1] = "Tabela com chave estrangeira!<br>Popular tabela {$tabela_fk} primeiro!<br>";
-				$arr_retorno[] = $error;
+				//$arr_retorno[] = $error;
 			}else{
 				$arr_retorno[0] = 'ERRO!<br>';
 				$arr_retorno[] = $error;

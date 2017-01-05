@@ -21,7 +21,7 @@
 		<div>
 			<table>
 				<tr>
-					<td><span class="field_name">SGBD</span></td>
+					<td><span class="field_name">Banco</span></td>
 					<td>
 						<select>
 							<option value="mysql" id="conn_sgbd">MySQL</option>
@@ -45,7 +45,7 @@
 				<tr>
 					<td><span class="field_name">Usuario</span></td>
 					<td>
-						<input type="text" id="conn_user" class="input">
+						<input type="text" id="conn_user" class="input" onkeydown="if(event.keyCode == 13){js_conn();}" autofocus>
 					</td>
 				</tr>
 			</table>
@@ -55,7 +55,7 @@
 				<tr>
 					<td><span class="field_name">Senha</span></td>
 					<td>
-						<input type="password" id="conn_password" class="input">
+						<input type="password" id="conn_password" class="input" onkeydown="if(event.keyCode == 13){js_conn();}">
 					</td>
 				</tr>
 			</table>
@@ -113,7 +113,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td>Modo Desenvolvedor</td>
+					<td>Mostrar SQL</td>
 					<td>
 						<input type="radio" name="debug" value="on" id="debug">On
 						<input type="radio"  name="debug" checked="checked">Off

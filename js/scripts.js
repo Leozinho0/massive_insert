@@ -59,6 +59,7 @@ function js_insert(){
 			var mensagem = quantidade+" registro(s) inserido(s) com sucesso!";
 			//1.Ds retorna um objeto JSON. Fazer um JSON.parse
 			//2.Verificação do retorno ds. Pode ser um erro ds.[0] -> erro!
+			
 			try{
 				arr = JSON.parse(ds);
 				//if->Modo Debug
@@ -74,7 +75,7 @@ function js_insert(){
 						$('#div_message').fadeIn();
 					}	
 				}else if(arr[0] == 'ERRO!<br>'){
-					$('#div_error').html(arr);
+					$('#div_error').html(arr[1]);
 					$('#div_error').fadeIn();
 				}
 			}catch(e){

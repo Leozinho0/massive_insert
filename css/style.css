@@ -64,9 +64,11 @@ body{
 }
 .input{
 	width: 90%;
+	border: solid 1px #c9c9c9;
 }
 select{
-	width: 100%;	
+	width: 100%;
+	border: solid 1px #c9c9c9;
 }
 #div_block{
 	display: none;
