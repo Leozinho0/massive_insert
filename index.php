@@ -12,7 +12,7 @@
 </head>
 <body>
 	<div id="" class="box_logo">
-		<img src="img/db_icon.png" alt="" width="80px">
+		<img src="img/db_icon.png" alt="" width="50px">
 		<div>
 			<span>Database Populator</span>
 		</div>
@@ -133,6 +133,5 @@
 	<!--Div ERRORS -->
 	<div style="display:none;" id="div_error" class="box_error">
 	</div>
-
 </body>
 </html>

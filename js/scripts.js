@@ -56,7 +56,7 @@ function js_insert(){
 		success: function(ds){
 			$('#div_block').hide();
 			$('#div_loading').hide();
-			var mensagem = quantidade+" registro(s) inserido(s) com sucesso!";
+			var mensagem = quantidade + " registro(s) inserido(s) com sucesso!";
 			//1.Ds retorna um objeto JSON. Fazer um JSON.parse
 			//2.Verificação do retorno ds. Pode ser um erro ds.[0] -> erro!
 			
