@@ -23,8 +23,12 @@
 				<tr>
 					<td><span class="field_name">Banco</span></td>
 					<td>
-						<select>
-							<option value="mysql" id="conn_sgbd">MySQL</option>
+						<select id='conn_sgbd'>
+							<option value="mysql">MySQL</option>
+							<option value="oracle">Oracle</option>
+							<option value="mssql">SQL SERVER</option>
+							<option value="postgres">Postgres</option>
+							<option value="firebird">Firebird</option>
 						</select>
 					</td>
 				</tr>
@@ -115,8 +119,8 @@
 				<tr>
 					<td>Mostrar SQL</td>
 					<td>
-						<input type="radio" name="debug" value="on" id="debug">On
-						<input type="radio"  name="debug" checked="checked">Off
+						<input type="radio" name="debug" value="on" id="debug">Sim
+						<input type="radio"  name="debug" checked="checked">Não
 					</td>
 				</tr>
 			</table>
@@ -128,7 +132,7 @@
 	</div>
 	<div id="div_loading">
 		<img src="http://s1.ticketm.net/tm/en-us/img/sys/1000/gray75_polling.gif" alt="" width="30px"/> <br>
-		<span>Inserindo dados... Aguarde!</span>
+		<span>Inserindo dados... Aguarde...</span>
 	</div>
 	<!--Div ERRORS -->
 	<div style="display:none;" id="div_error" class="box_error">

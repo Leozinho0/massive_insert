@@ -2,7 +2,7 @@ function js_listBases(){
 	var d = 'sgbd=' + document.getElementById("conn_sgbd").value + '&adress=' + document.getElementById("conn_adress").value + '&user=' + document.getElementById("conn_user").value + '&password=' + document.getElementById("conn_password").value + "&id=2";
 	$.ajax({
 		type: 'POST',
-		url: 'conn_valid.php',
+		url: 'conn_valida.php',
 		data: d,
 		success: function(ds){
 			arr = JSON.parse(ds);
@@ -24,7 +24,7 @@ function js_listTables(){
 	var d = 'sgbd=' + document.getElementById("conn_sgbd").value + '&adress=' + document.getElementById("conn_adress").value + '&user=' + document.getElementById("conn_user").value + '&password=' + document.getElementById("conn_password").value + "&base=" + document.getElementById("id_bases").value + "&id=3";
 	$.ajax({
 		type: 'POST',
-		url: 'conn_valid.php',
+		url: 'conn_valida.php',
 		data: d,
 		success: function(ds){
 			arr = JSON.parse(ds);
@@ -51,7 +51,7 @@ function js_insert(){
 	$('#div_loading').fadeIn();
 	$.ajax({
 		type: 'POST',
-		url: 'conn_valid.php',
+		url: 'conn_valida.php',
 		data: d,
 		success: function(ds){
 			$('#div_block').hide();
@@ -85,11 +85,12 @@ function js_insert(){
 		}
 	});
 }
+//
 function js_conn(){
-	var d = 'sgbd=' + document.getElementById("conn_sgbd").value + '&adress=' + document.getElementById("conn_adress").value + '&user=' + document.getElementById("conn_user").value + '&password=' + document.getElementById("conn_password").value + "&id=1";
+	var d = 'sgbd=' + $('#conn_sgbd option:selected').val() + '&adress=' + document.getElementById("conn_adress").value + '&user=' + document.getElementById("conn_user").value + '&password=' + document.getElementById("conn_password").value + "&id=1";
 	$.ajax({
 		type: 'POST',
-		url: 'conn_valid.php',
+		url: 'conn_valida.php',
 		data: d,
 		success: function(ds){
 			if(ds == "y"){
