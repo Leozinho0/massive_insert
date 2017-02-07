@@ -58,7 +58,14 @@ class Conn{
 				$this->setUser($user);
 				$this->setPassword($pwd);
 				$this->setConnectionStatus();	
-			}	
+			}else if($sgbd == 'postgres'){
+				$this->conn_obj = new PDO('pgsql:dbname=leo;host='.$address.';user='.$user.';password='.$pwd);
+				$this->setSgbd($sgbd);
+				$this->setAddress($address);
+				$this->setUser($user);
+				$this->setPassword($pwd);
+				$this->setConnectionStatus();
+			}
 		}catch(PDOException $e){
 			$this->conn_error = $e->getMessage();
 		}
@@ -127,22 +134,48 @@ class Conn{
 		}
 	}
 
-	public function showDatabases(){
+	public function showDatabases($banco){
 		$arr_retorno = array();
-		$a = $this->conn_obj->query("SHOW DATABASES;");
-		foreach($a as $db)
+		switch($banco)
 		{
-			$arr_retorno[] = $db;
+			case 'mysql':
+			{
+				$a = $this->conn_obj->query("SHOW DATABASES;");
+				foreach($a as $db)
+				{
+					$arr_retorno[] = $db;
+				}
+			}
+			case 'postgres':
+			{
+
+			}
+			case 'oracle':
+			{
+				$a = $this->conn_obj->query("SHOW DATABASES;");
+				foreach($a as $db)
+				{
+					$arr_retorno[] = $db;
+				}
+			}
+			case 'postgres':
+			{
+				$a = $this->conn_obj->query("\list");
+				foreach($a as $db)
+				{
+					$arr_retorno[] = $db;
+				}
+			}
 		}
 		return $arr_retorno;
 	}
 
-	public function showTables($base){
+	public function showTables(){
 		$arr_retorno = array();
-		$a = $this->conn_obj->query("SHOW TABLES;");
-		foreach($a as $db)
+		$arr_table = $this->conn_obj->query("SHOW TABLES;");
+		foreach($arr_table as $key)
 		{
-			$arr_retorno[] = $db;
+			$arr_retorno[] = $key;
 		}
 		return $arr_retorno;
 	}

@@ -24,7 +24,12 @@ if(isset($_POST['id']) && $_POST['id'] == 1){
 			echo "Ainda não configurado";
 			break;
 		case 'postgres':
-			echo "Ainda não configurado";
+			$conn = new Conn($_POST['sgbd'], $_POST['adress'], $_POST['user'], $_POST['password']);
+			if($conn->connStatus()){
+				echo "y";
+			}else{
+				echo $conn->getError();
+			}
 			break;
 		case 'firebird':
 			echo "Ainda não configurado";
@@ -34,19 +39,16 @@ if(isset($_POST['id']) && $_POST['id'] == 1){
 //
 //Show databases
 else if(isset($_POST['id']) && $_POST['id'] == 2){
-	switch ($_POST['sgbd']) {
-		case 'mysql':
 			$conn = new Conn($_POST['sgbd'], $_POST['adress'], $_POST['user'], $_POST['password']);
-			echo json_encode($conn->showDatabases());
-			break;
-	}
+			echo json_encode($conn->showDatabases($_POST['sgbd']));
 }
 //
 //Show tables
 else if(isset($_POST['id']) && isset($_POST['base']) && $_POST['id'] == 3){
 	$conn = new Conn($_POST['sgbd'], $_POST['adress'], $_POST['user'], $_POST['password']);
 	if($conn->useDatabase($_POST['base'])){
-		echo json_encode($conn->showTables($_POST['base']));
+		echo json_encode($conn->showTables());
+		//echo $conn->showTables();
 	}
 }
 //
