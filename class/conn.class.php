@@ -145,10 +145,11 @@ class Conn{
 				{
 					$arr_retorno[] = $db;
 				}
+				break;
 			}
 			case 'postgres':
 			{
-
+				break;
 			}
 			case 'oracle':
 			{
@@ -157,14 +158,7 @@ class Conn{
 				{
 					$arr_retorno[] = $db;
 				}
-			}
-			case 'postgres':
-			{
-				$a = $this->conn_obj->query("\list");
-				foreach($a as $db)
-				{
-					$arr_retorno[] = $db;
-				}
+				break;
 			}
 		}
 		return $arr_retorno;

@@ -24,8 +24,8 @@
 					<td><span class="field_name">Banco</span></td>
 					<td>
 						<select id='conn_sgbd'>
-							<option value="mysql">MySQL</option>
-							<option value="oracle">Oracle</option>
+							<option value="mysql">MySQL PDO</option>
+							<option value="oracle">Oracle PDO</option>
 							<option value="mssql">SQL SERVER</option>
 							<option value="postgres">Postgres</option>
 							<option value="firebird">Firebird</option>
