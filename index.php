@@ -78,7 +78,7 @@
 				<tr>
 					<td>Base</td>
 					<td>
-						<select id="id_bases" onchange="js_listTables(); insert_enable('div_btn_disabled', 'div_btn'); ">
+						<select id="id_bases" onchange="js_listTables(); ">
 						</select>
 					</td>
 				</tr>

@@ -369,9 +369,18 @@ class Conn{
 							if(strlen($value->value) <= $typeParam || $typeParam == ""){
 								$arr_retorno[] = "'".$value->value."'";
 							}
-						}
-						$arr_retorno[] =
-						break;*/
+						}*/
+						$arr_retorno[] = "'BLOB'";
+						break;
+					}
+					case 'enum':{
+						/*foreach ($this->arr_ds_text as $key=>$value){
+							if(strlen($value->value) <= $typeParam || $typeParam == ""){
+								$arr_retorno[] = "'".$value->value."'";
+							}
+						}*/
+						$arr_retorno[] = "'1'";
+						break;
 					}
 				}
 				return $arr_retorno[array_rand($arr_retorno, 1)];

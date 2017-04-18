@@ -28,13 +28,21 @@ function js_listTables(){
 		data: d,
 		success: function(ds){
 			arr = JSON.parse(ds);
-
-			$("#id_tables").html('');
-			for(it=0; it<arr.length; it++)
-			{
-				$("#id_tables").append("<option value='"+ arr[it][0] +"'>"+ arr[it][0] +"</option>");
+			if(arr.length === 0){
+				insert_enable('div_btn', 'div_btn_disabled');
+				$("#id_tables").html("<option value=''></option>");
+				alert("Base vazia!");
+			}else{
+				insert_enable('div_btn_disabled', 'div_btn');
+				$("#id_tables").html('');
+				for(it=0; it<arr.length; it++)
+				{
+					$("#id_tables").append("<option value='"+ arr[it][0] +"'>"+ arr[it][0] +"</option>");
+				}
+				$('#div_tabelas').show();
 			}
-			$('#div_tabelas').show();
+
+			
 		}
 	});
 }
